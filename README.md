@@ -1,6 +1,5 @@
 🦶 2Care Foot Health Website
 
-
 A modern, production-ready website for 2Care Foot Health, built with Next.js and TypeScript. The site provides professional service information, booking access, and SEO-optimized content for clients in Aberdeen & Aberdeenshire.
 
 👉 Live Site:
@@ -41,7 +40,6 @@ Lucide Icons
 
 📸 Screenshots
 
-
 Home Page
 
 Services Page
@@ -49,29 +47,29 @@ Services Page
 Mobile View
 
 📁 Project Structure
-app/                 # Global layout & SEO configuration
-  layout.tsx
-  sitemap.ts
-  robots.ts
-  favicon.ico
+app/ # Global layout & SEO configuration
+layout.tsx
+sitemap.ts
+robots.ts
+favicon.ico
 
-pages/               # Route pages
-  index.tsx
-  about.tsx
-  services.tsx
-  privacy.tsx
+pages/ # Route pages
+index.tsx
+about.tsx
+services.tsx
+privacy.tsx
 
-components/          # Reusable UI components
-  Header.tsx
-  Footer.tsx
-  CookieConsent.tsx
+components/ # Reusable UI components
+Header.tsx
+Footer.tsx
+CookieConsent.tsx
 
-public/              # Static assets
-  images/
-  videos/
-  screenshots/
+public/ # Static assets
+images/
+videos/
+screenshots/
 
-styles/              # Global styling
+styles/ # Global styling
 
 ⚙️ Installation
 
@@ -79,16 +77,13 @@ Clone the repository:
 
 git clone https://github.com/bobprince4u/2care-foothealth.git
 
-
 Install dependencies:
 
 npm install
 
-
 Run development server:
 
 npm run dev
-
 
 Open in browser:
 
@@ -168,16 +163,13 @@ Create a new branch:
 
 git checkout -b feature-name
 
-
 Commit changes:
 
 git commit -m "Add feature"
 
-
 Push branch:
 
 git push origin feature-name
-
 
 Open a Pull Request
 
@@ -203,7 +195,6 @@ Unauthorized commercial reuse is not permitted.
 
 Princewill
 Software Engineer
-
 
 Portfolio: (add your portfolio link)
 
