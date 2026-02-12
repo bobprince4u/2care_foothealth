@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 // onNavigate: (page: string) => void;
 //}
 
-export function PrivacyPage() {
+export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}

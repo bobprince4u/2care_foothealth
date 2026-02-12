@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { ServicesPage } from "@/pages/ServicesPage";
+import ServicesPage from "@/pages/ServicesPage";
 
 export const metadata: Metadata = {
   title: "Our Services - 2Care Foot Health",

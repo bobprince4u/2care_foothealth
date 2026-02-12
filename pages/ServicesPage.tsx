@@ -23,7 +23,7 @@ import Link from "next/link";
 //onNavigate: (page: string) => void;
 //}
 
-export function ServicesPage() {
+export default function ServicesPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -350,7 +350,7 @@ export function ServicesPage() {
                 ))
               : services.map((service, index) => {
                   const Icon = service.icon;
-                  const isEven = index % 2 === 0;
+
                   return (
                     <motion.div
                       key={index}
@@ -535,12 +535,14 @@ export function ServicesPage() {
             >
               Book Appointment
             </Button>
-            <Link
-              href="/about"
-              className="border-white text-white hover:bg-white/10"
-            >
-              Contact Us
-            </Link>
+            <Button asChild size="lg" variant="outline">
+              <Link
+                href="/about"
+                className="border-white text-white hover:bg-white/10"
+              >
+                Contact Us
+              </Link>
+            </Button>
           </div>
         </div>
       </section>

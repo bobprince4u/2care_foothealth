@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { PrivacyPage } from "@/pages/PrivacyPage";
+import PrivacyPage from "@/pages/PrivacyPage";
 
 export const metadata: Metadata = {
   title: "Privacy Policy - 2Care Foot Health",
