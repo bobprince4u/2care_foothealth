@@ -18,11 +18,11 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { motion } from "framer-motion";
 
-interface AboutPageProps {
-  onNavigate: (page: string) => void;
-}
+//interface AboutPageProps {
+// onNavigate: (page: string) => void;
+//}
 
-export function AboutPage({ onNavigate }: AboutPageProps) {
+export function AboutPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

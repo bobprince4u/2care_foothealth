@@ -17,12 +17,13 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
-interface ServicesPageProps {
-  onNavigate: (page: string) => void;
-}
+//interface ServicesPageProps {
+//onNavigate: (page: string) => void;
+//}
 
-export function ServicesPage({ onNavigate }: ServicesPageProps) {
+export function ServicesPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -534,14 +535,12 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
             >
               Book Appointment
             </Button>
-            <Button
-              onClick={() => onNavigate("about")}
-              size="lg"
-              variant="outline"
+            <Link
+              href="/about"
               className="border-white text-white hover:bg-white/10"
             >
               Contact Us
-            </Button>
+            </Link>
           </div>
         </div>
       </section>

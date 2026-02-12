@@ -1,11 +1,11 @@
 import { Shield, Lock, Eye, FileText, CheckCircle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-interface PrivacyPageProps {
-  onNavigate: (page: string) => void;
-}
+//interface PrivacyPageProps {
+// onNavigate: (page: string) => void;
+//}
 
-export function PrivacyPage({ onNavigate }: PrivacyPageProps) {
+export function PrivacyPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
