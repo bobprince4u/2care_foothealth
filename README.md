@@ -2,7 +2,7 @@
 
 A modern, production-ready website for 2Care Foot Health, built with Next.js and TypeScript. The site provides professional service information, booking access, and SEO-optimized content for clients in Aberdeen & Aberdeenshire.
 
-👉 Live Site:
+👉 Live Site:www.2carefoothealth.info
 
 ✨ Features
 
