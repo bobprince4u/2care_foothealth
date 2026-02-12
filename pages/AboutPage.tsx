@@ -22,7 +22,7 @@ import { motion } from "framer-motion";
 // onNavigate: (page: string) => void;
 //}
 
-export function AboutPage() {
+export default function AboutPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
