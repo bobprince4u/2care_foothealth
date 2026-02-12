@@ -18,12 +18,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
-interface HomePageProps {
-  onNavigate: (page: string) => void;
-}
+//interface HomePageProps {
+// onNavigate: (page: string) => void;
+//}
 
-export default function HomePage({ onNavigate }: HomePageProps) {
+export default function HomePage() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -334,12 +335,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 })}
           </div>
           <div className="text-center mt-8">
-            <Button
-              onClick={() => onNavigate("services")}
-              size="lg"
-              variant="outline"
-            >
-              View All Services
+            <Button asChild size="lg" variant="outline">
+              <Link href="/services">View All Services</Link>
             </Button>
           </div>
         </div>
