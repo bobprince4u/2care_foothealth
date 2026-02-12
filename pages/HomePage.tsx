@@ -23,7 +23,7 @@ interface HomePageProps {
   onNavigate: (page: string) => void;
 }
 
-export function HomePage({ onNavigate }: HomePageProps) {
+export default function HomePage({ onNavigate }: HomePageProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
 
