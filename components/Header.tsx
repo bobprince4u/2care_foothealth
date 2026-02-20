@@ -58,7 +58,7 @@ export function Header() {
 
       {/* Main header */}
       <header className="bg-white border-b border-border sticky top-0 z-50 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-4">
+        <div className="max-w-7xl mx-auto px-6 h-28">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <Link
@@ -67,11 +67,12 @@ export function Header() {
               aria-label="Go to home page"
             >
               <Image
-                src="/logo.jpeg"
+                src="/logo-bg.png"
                 alt="2Care Foot Health Logo"
                 width={200}
                 height={80}
-                className="h-12 sm:h-16 w-auto"
+                className="h-20 sm:h-24 w-auto"
+                priority
               />
             </Link>
 

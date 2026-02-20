@@ -19,11 +19,11 @@ export function Footer() {
           {/* About */}
           <div>
             <Image
-              src="/logo.jpeg"
+              src="/logo-remove.png"
               alt="2Care Foot Health Logo"
               width={200}
               height={80}
-              className="h-16 w-auto mb-4"
+              className="h-24 w-auto mb-4 drop-shadow-md"
             />
             <p className="text-sm text-slate-300 mb-4">
               Professional foot health services for elderly patients, diabetic
