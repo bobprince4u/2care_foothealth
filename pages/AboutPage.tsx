@@ -63,7 +63,7 @@ export default function AboutPage() {
 
   const specialties = [
     "Elderly patients requiring gentle, professional care",
-    "Diabetic patients needing specialized foot health management",
+    "Diabetic patients needing specialised foot health management",
     "Athletes seeking performance and injury prevention",
     "Care homes and residential facilities",
     "General foot care for all ages",
@@ -145,15 +145,15 @@ export default function AboutPage() {
                   of life.
                 </p>
                 <p>
-                  Our practice specializes in serving elderly patients, diabetic
+                  Our practice specialises in serving elderly patients, diabetic
                   patients, athletes, and anyone seeking professional foot care.
                   We offer both home visits for convenience and studio-based
-                  appointments for comprehensive treatments.
+                  appointments for comprehensive service.
                 </p>
                 <p>
                   What sets us apart is our commitment to personalized care. We
                   take the time to understand each patient&apos;s unique needs
-                  and concerns, providing treatments in a calm, professional
+                  and concerns, providing services in a calm, professional
                   environment where you feel valued and cared for.
                 </p>
               </div>
@@ -314,9 +314,9 @@ export default function AboutPage() {
                 <h3 className="mb-3">Studio Appointments</h3>
                 <p className="text-muted-foreground mb-4">
                   Our professional studio environment is equipped for
-                  comprehensive treatments, including medical pedicures and
-                  specialized procedures. Studio appointments are available
-                  every Thursday and can be booked online.
+                  comprehensive services and medical pedicures. Studio
+                  appointments are available every Thursday and can be booked
+                  online.
                 </p>
                 <ul className="space-y-2 text-sm text-slate-600">
                   <li className="flex items-start gap-2">

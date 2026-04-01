@@ -39,9 +39,9 @@ export default function HomePage() {
 
   const services = [
     {
-      title: "Diabetic Foot Care",
+      title: "FootCare For Diabetic Patients",
       description:
-        "Specialized care for diabetic patients to prevent complications and maintain foot health.",
+        "Footcare for diabetic patients to prevent complications and maintain foot health.",
       icon: Heart,
     },
     {
@@ -59,7 +59,7 @@ export default function HomePage() {
     {
       title: "Medical Pedicure",
       description:
-        "Comprehensive foot care treatment including massage (studio appointments only).",
+        "Comprehensive foot care service including massage (studio appointments only).",
       icon: Award,
     },
   ];
@@ -72,12 +72,12 @@ export default function HomePage() {
     },
     {
       title: "Studio Appointments",
-      description: "Professional treatment in our studio every Thursday",
+      description: "Professional Services in our studio every Thursday",
       icon: Calendar,
     },
     {
       title: "Fully Registered",
-      description: "PRFHC registered professional foot health practitioner",
+      description: "PRFHC registered professional foot health Service",
       icon: Shield,
     },
   ];
@@ -109,7 +109,7 @@ export default function HomePage() {
       location: "Aberdeenshire",
       rating: 5,
       text: "I had been struggling with an ingrown toenail for months. The treatment was professional and virtually painless. Pain-free now!",
-      service: "Ingrown Toenail Treatment",
+      service: "Ingrown Toenail Service",
     },
   ];
 
@@ -403,8 +403,8 @@ export default function HomePage() {
                   <div>
                     <h4 className="mb-1">Compassionate Care</h4>
                     <p className="text-muted-foreground">
-                      Specializing in care for elderly patients, diabetic
-                      patients, and those with mobility concerns
+                      Provide care for elderly patients, diabetic patients, and
+                      those with mobility concerns
                     </p>
                   </div>
                 </motion.div>

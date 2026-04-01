@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: "https://www.2carefoothealth.info",
+  siteUrl: "https://www.2carefoothealth.co.uk",
   generateRobotsTxt: true,
   sitemapSize: 5000,
   changefreq: "weekly",

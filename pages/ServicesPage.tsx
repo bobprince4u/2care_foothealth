@@ -37,17 +37,12 @@ export default function ServicesPage() {
 
   const services = [
     {
-      title: "Diabetic Foot Care",
+      title: "Foot Care for Diabetic Patients",
       icon: Heart,
       description:
-        "Specialized foot health care for diabetic patients to prevent complications and maintain optimal foot health.",
+        "Foot health care for diabetic patients to prevent complications and maintain optimal foot health.",
       details: [
-        "Comprehensive foot health assessment",
-        "Nail care with diabetic protocols",
-        "Skin condition monitoring",
-        "Circulation and sensation checks",
-        "Preventative care advice",
-        "Early detection of potential issues",
+        "Footcare for diabetic patients to prevent complications and maintain foot health.",
       ],
       availability: "Home visits and studio",
     },
@@ -59,7 +54,7 @@ export default function ServicesPage() {
       details: [
         "Safe cutting and trimming techniques",
         "Professional filing and shaping",
-        "Treatment for thickened nails",
+        "Service for thickened nails",
         "Reduction of thickened nails",
         "Nail condition assessment",
         "Fingernails available at extra cost",
@@ -70,9 +65,9 @@ export default function ServicesPage() {
       title: "Ingrown Toenail Treatment",
       icon: AlertCircle,
       description:
-        "Expert management and treatment of ingrown toenails to relieve pain and prevent infection.",
+        "Expert management and service of ingrown toenails to relieve pain and prevent infection.",
       details: [
-        "Pain relief treatment",
+        "Pain relief service",
         "Professional nail cutting techniques",
         "Infection prevention",
         "Ongoing management plans",
@@ -82,13 +77,13 @@ export default function ServicesPage() {
       availability: "Home visits and studio",
     },
     {
-      title: "Fungal Nail Treatment",
+      title: "Fungal Nail care and management",
       icon: Stethoscope,
       description:
-        "Treatment and management of fungal nail infections with professional advice and care.",
+        "Management of fungal nail infections with professional advice and care.",
       details: [
         "Fungal infection assessment",
-        "Treatment recommendations",
+
         "Nail debridement",
         "Hygiene advice",
         "Prevention strategies",
@@ -137,10 +132,10 @@ export default function ServicesPage() {
         "Gentle, professional care with home visits available for those with mobility concerns.",
     },
     {
-      title: "Diabetic Patients",
+      title: "Footcare ForDiabetic Patients",
       icon: Heart,
       description:
-        "Specialized diabetic foot care protocols to prevent complications and maintain health.",
+        "Specialised diabetic foot care protocols to prevent complications and maintain health.",
     },
     {
       title: "Athletes",
@@ -152,7 +147,7 @@ export default function ServicesPage() {
       title: "Care Homes",
       icon: Users,
       description:
-        "Professional foot health services for residential care facilities and nursing homes.",
+        "Foot health services for residential care facilities and nursing homes.",
     },
   ];
 
@@ -231,8 +226,7 @@ export default function ServicesPage() {
                     Sterilized Professional Tools
                   </h3>
                   <p className="text-sm text-slate-600">
-                    Hospital-grade sterilization protocols for your safety and
-                    peace of mind
+                    Sterilization protocols for your safety and peace of mind
                   </p>
                 </CardContent>
               </Card>
@@ -314,7 +308,7 @@ export default function ServicesPage() {
               Our Professional Services
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Specialized foot health care tailored to your individual needs
+              Specialised foot health care tailored to your individual needs
             </p>
           </div>
           <div className="grid lg:grid-cols-2 gap-8">
@@ -493,7 +487,7 @@ export default function ServicesPage() {
                   Terminology
                 </h4>
                 <p className="text-sm text-slate-600">
-                  We refer to our treatment space as a &quot;studio&quot; rather
+                  We refer to our service space as a &quot;studio&quot; rather
                   than a &quot;clinic.&quot; The term &quot;clinic&quot; is
                   reserved for podiatrists. We are registered foot health
                   practitioners providing professional foot health care
