@@ -18,21 +18,34 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { motion } from "framer-motion";
 
-//interface AboutPageProps {
-// onNavigate: (page: string) => void;
-//}
-
 export default function AboutPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate content loading
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 600);
-
+    const timer = setTimeout(() => setIsLoading(false), 600);
     return () => clearTimeout(timer);
   }, []);
+
+  const easing: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+  const fadeUp = {
+    hidden: { opacity: 0, y: 28 },
+    visible: (i = 0) => ({
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.65, delay: i * 0.1, ease: easing },
+    }),
+  };
+
+  const fadeLeft = {
+    hidden: { opacity: 0, x: -40 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.75, ease: easing } },
+  };
+
+  const fadeRight = {
+    hidden: { opacity: 0, x: 40 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.75, ease: easing } },
+  };
 
   const values = [
     {
@@ -70,568 +83,1737 @@ export default function AboutPage() {
     "Patients with mobility concerns who benefit from home visits",
   ];
 
+  const contacts = [
+    {
+      icon: Phone,
+      title: "Phone",
+      link: "tel:+447300790349",
+      text: "07300 790349",
+    },
+    {
+      icon: Mail,
+      title: "Email",
+      link: "mailto:2carefoothealth@gmail.com",
+      text: "2carefoothealth@gmail.com",
+      isSmall: true,
+    },
+    {
+      icon: MessageCircle,
+      title: "WhatsApp",
+      link: "https://wa.me/447300790349",
+      text: "Message Us",
+      external: true,
+    },
+    {
+      icon: MapPin,
+      title: "Address",
+      text: "11 School Crescent, Newburgh, Ellon AB41 6BH",
+      isAddress: true,
+    },
+  ];
+
+  const faqs = [
+    {
+      question: "How quickly can I get an appointment?",
+      answer:
+        "We strive to accommodate appointments as quickly as possible. Home visits can often be arranged within a few days, and studio appointments on Thursdays can be booked online immediately based on availability.",
+    },
+    {
+      question: "Do you provide services to care homes?",
+      answer:
+        "Yes! We provide professional foot health services to care homes and residential facilities across our service area. Please contact us to discuss your care home's needs.",
+    },
+    {
+      question: "What should I expect during a home visit?",
+      answer:
+        "We bring all necessary equipment to your home. All you need to provide is a comfortable chair and good lighting. The appointment typically lasts 30-45 minutes depending on the treatment required.",
+    },
+    {
+      question: "Are you qualified and insured?",
+      answer:
+        "Yes, we are registered with the Professional Register for Foot Health Care (Registration Number: PRFHC0090) and are fully insured. We maintain the highest standards of professional practice and hygiene.",
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="bg-linear-to-br from-blue-50 to-teal-50 py-16 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl lg:text-5xl mb-6 text-slate-900">
-              About 2Care Foot Health
+    <div
+      className="min-h-screen"
+      style={{
+        fontFamily: "'Plus Jakarta Sans', sans-serif",
+        background: "#F9F7F3",
+        color: "#0D1B2A",
+      }}
+    >
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
+        :root {
+          --ink: #0D1B2A; --ink-soft: #3D5166; --muted: #7A8FA3;
+          --gold: #C08A3A; --gold-lt: #F5EAD8;
+          --sage: #3E7064; --sage-lt: #E4EFE8;
+          --cream: #F9F7F3; --white: #FFFFFF;
+          --border: rgba(13,27,42,0.08); --border-md: rgba(13,27,42,0.13);
+        }
+        .font-display { font-family: 'Cormorant Garamond', Georgia, serif !important; }
+        .eyebrow {
+          display: inline-flex; align-items: center; gap: 0.5rem;
+          font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+          text-transform: uppercase; color: var(--gold);
+        }
+        .eyebrow::before {
+          content: ''; display: block; width: 22px; height: 1.5px;
+          background: var(--gold); border-radius: 2px;
+        }
+        .value-card {
+          background: var(--white); border-radius: 16px;
+          border: 1px solid var(--border); padding: 2rem; height: 100%;
+          transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
+          position: relative; overflow: hidden;
+        }
+        .value-card::after {
+          content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+          background: linear-gradient(90deg, var(--sage), var(--gold));
+          transform: scaleX(0); transform-origin: left; transition: transform 0.35s ease;
+        }
+        .value-card:hover { box-shadow: 0 12px 40px rgba(13,27,42,0.10); transform: translateY(-3px); border-color: var(--border-md); }
+        .value-card:hover::after { transform: scaleX(1); }
+        .value-card:hover .val-icon { background: var(--sage) !important; }
+        .value-card:hover .val-icon svg { stroke: white; }
+        .contact-card {
+          background: var(--white); border-radius: 16px;
+          border: 1px solid var(--border); padding: 1.75rem; height: 100%;
+          transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
+        }
+        .contact-card:hover { box-shadow: 0 12px 40px rgba(13,27,42,0.10); transform: translateY(-3px); border-color: var(--sage); }
+        .contact-card:hover .contact-icon { background: var(--sage) !important; }
+        .contact-card:hover .contact-icon svg { stroke: white; }
+        .delivery-card {
+          background: var(--white); border-radius: 16px;
+          border: 1px solid var(--border); padding: 2rem; height: 100%;
+          transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .delivery-card:hover { border-color: var(--sage); box-shadow: 0 8px 24px rgba(13,27,42,0.07); }
+        .faq-item {
+          background: var(--white); border-radius: 16px;
+          border: 1px solid var(--border); padding: 2rem;
+          transition: box-shadow 0.25s, transform 0.25s;
+        }
+        .faq-item:hover { box-shadow: 0 12px 32px rgba(13,27,42,0.09); transform: translateY(-2px); }
+        .info-card {
+          background: var(--white); border-radius: 16px;
+          border: 1px solid var(--border); overflow: hidden;
+          transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .info-card:hover { border-color: var(--border-md); box-shadow: 0 8px 24px rgba(13,27,42,0.07); }
+        .info-card-header {
+          padding: 1.5rem 1.75rem; border-bottom: 1px solid var(--border);
+          display: flex; align-items: center; gap: 0.75rem;
+        }
+        .info-card-body { padding: 1.5rem 1.75rem; }
+        .divider-row { padding: 1rem 0; border-top: 1px solid var(--border); }
+      `}</style>
+
+      {/* ── HERO ── */}
+      <section
+        style={{
+          background: "var(--cream)",
+          padding: "7rem clamp(1.5rem,5vw,4rem) 5rem",
+        }}
+      >
+        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeUp}
+            style={{ maxWidth: 640 }}
+          >
+            <span
+              className="eyebrow"
+              style={{ marginBottom: "1rem", display: "inline-flex" }}
+            >
+              Our Story
+            </span>
+            <h1
+              className="font-display"
+              style={{
+                fontSize: "clamp(2.8rem,5vw,4.25rem)",
+                fontWeight: 500,
+                lineHeight: 1.12,
+                letterSpacing: "-0.02em",
+                color: "var(--ink)",
+                margin: "0.75rem 0 1.5rem",
+              }}
+            >
+              About{" "}
+              <em style={{ color: "var(--sage)", fontStyle: "italic" }}>
+                2Care Foot Health
+              </em>
             </h1>
-            <p className="text-lg text-slate-600">
+            <p
+              style={{
+                fontSize: "1.0625rem",
+                color: "var(--ink-soft)",
+                lineHeight: 1.7,
+                maxWidth: 520,
+              }}
+            >
               Dedicated to providing professional, compassionate foot health
               care services across Aberdeen and Aberdeenshire
             </p>
-          </div>
+          </motion.div>
+
+          {/* Stats strip */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeUp}
+            custom={2}
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "2.5rem",
+              marginTop: "3.5rem",
+              paddingTop: "2.5rem",
+              borderTop: "1px solid var(--border)",
+            }}
+          >
+            {[
+              { val: "PRFHC0090", label: "Registration No." },
+              { val: "Home & Studio", label: "Flexible Locations" },
+              { val: "Thursday", label: "Studio Day" },
+              { val: "Aberdeen", label: "& Aberdeenshire" },
+            ].map((s) => (
+              <div key={s.label}>
+                <div
+                  className="font-display"
+                  style={{
+                    fontSize: "1.75rem",
+                    fontWeight: 600,
+                    color: "var(--ink)",
+                    letterSpacing: "-0.02em",
+                    lineHeight: 1,
+                  }}
+                >
+                  {s.val}
+                </div>
+                <div
+                  style={{
+                    fontSize: "0.8rem",
+                    color: "var(--muted)",
+                    marginTop: "0.3rem",
+                  }}
+                >
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
-      {/* Video Section - PLACEHOLDER FOR YOUR VIDEO */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl lg:text-4xl mb-4 text-slate-900">
+      {/* ── VIDEO ── */}
+      <section
+        style={{
+          background: "var(--white)",
+          padding: "5rem clamp(1.5rem,5vw,4rem)",
+        }}
+      >
+        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            style={{ marginBottom: "3rem" }}
+          >
+            <span
+              className="eyebrow"
+              style={{ marginBottom: "0.875rem", display: "inline-flex" }}
+            >
+              Watch
+            </span>
+            <h2
+              className="font-display"
+              style={{
+                fontSize: "clamp(2rem,3.5vw,3rem)",
+                fontWeight: 500,
+                letterSpacing: "-0.02em",
+                color: "var(--ink)",
+                lineHeight: 1.18,
+              }}
+            >
               See Our Care in Action
             </h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            <p
+              style={{
+                fontSize: "1.0625rem",
+                color: "var(--ink-soft)",
+                lineHeight: 1.7,
+                maxWidth: 520,
+                marginTop: "0.875rem",
+              }}
+            >
               Learn more about our professional foot health services and what to
               expect
             </p>
-          </div>
+          </motion.div>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="rounded-2xl overflow-hidden shadow-2xl bg-slate-100 aspect-video flex items-center justify-center">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            custom={1}
+          >
+            <div
+              style={{
+                borderRadius: 20,
+                overflow: "hidden",
+                boxShadow: "0 20px 60px rgba(13,27,42,0.12)",
+                background: "var(--ink)",
+                aspectRatio: "16/9",
+                maxWidth: 900,
+                margin: "0 auto",
+              }}
+            >
               <video
                 controls
-                className="w-full h-full"
+                style={{ width: "100%", height: "100%", display: "block" }}
                 poster="path-to-thumbnail.jpg"
               >
                 <source src="videos/2care.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
-              {/*<div className="text-center p-8">
-                <div className="bg-primary/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg
-                    className="w-10 h-10 text-primary"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div> 
-                <p className="text-slate-600 text-lg">Video Placeholder</p>
-                <p className="text-slate-500 text-sm mt-2"></p>
-              </div>*/}
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Main Content */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
-            <div>
-              <h2 className="text-3xl mb-6 text-slate-900">
-                Our Story & Mission
-              </h2>
-              <div className="space-y-4 text-slate-600">
-                <p>
-                  2Care Foot Health was founded with a simple but important
-                  mission: to provide accessible, professional foot health care
-                  to those who need it most. We understand that healthy feet are
-                  essential for maintaining independence, mobility, and quality
-                  of life.
+      {/* ── STORY & MISSION ── */}
+      <section
+        style={{
+          background: "var(--cream)",
+          padding: "5rem clamp(1.5rem,5vw,4rem)",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: 1280,
+            margin: "0 auto",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+            gap: "5rem",
+            alignItems: "center",
+          }}
+        >
+          {/* Copy */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeLeft}
+          >
+            <span
+              className="eyebrow"
+              style={{ marginBottom: "0.875rem", display: "inline-flex" }}
+            >
+              Who We Are
+            </span>
+            <h2
+              className="font-display"
+              style={{
+                fontSize: "clamp(2rem,3.5vw,3rem)",
+                fontWeight: 500,
+                letterSpacing: "-0.02em",
+                color: "var(--ink)",
+                lineHeight: 1.18,
+                marginBottom: "1.75rem",
+              }}
+            >
+              Our Story &amp; Mission
+            </h2>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+            >
+              {[
+                "2Care Foot Health was founded with a simple but important mission: to provide accessible, professional foot health care to those who need it most. We understand that healthy feet are essential for maintaining independence, mobility, and quality of life.",
+                "Our practice specialises in serving elderly patients, diabetic patients, athletes, and anyone seeking professional foot care. We offer both home visits for convenience and studio-based appointments for comprehensive service.",
+                "What sets us apart is our commitment to personalized care. We take the time to understand each patient's unique needs and concerns, providing services in a calm, professional environment where you feel valued and cared for.",
+              ].map((p, i) => (
+                <p
+                  key={i}
+                  style={{
+                    fontSize: "0.9375rem",
+                    color: "var(--ink-soft)",
+                    lineHeight: 1.75,
+                  }}
+                >
+                  {p}
                 </p>
-                <p>
-                  Our practice specialises in serving elderly patients, diabetic
-                  patients, athletes, and anyone seeking professional foot care.
-                  We offer both home visits for convenience and studio-based
-                  appointments for comprehensive service.
-                </p>
-                <p>
-                  What sets us apart is our commitment to personalized care. We
-                  take the time to understand each patient&apos;s unique needs
-                  and concerns, providing services in a calm, professional
-                  environment where you feel valued and cared for.
-                </p>
-              </div>
+              ))}
+            </div>
 
-              <div className="mt-8 p-6 bg-secondary/10 rounded-lg">
-                <h3 className="mb-3 text-slate-900">
-                  Professional Registration
-                </h3>
-                <div className="flex items-start gap-3">
-                  <Shield className="size-6 text-secondary shrink-0 mt-1" />
-                  <div>
-                    <p className="font-medium text-slate-900">
-                      Professional Register for Foot Health Care (PRFHC)
-                    </p>
-                    <p className="text-sm text-slate-600 mt-1">
-                      Registration Number: PRFHC0090
-                    </p>
-                    <p className="text-sm text-slate-600 mt-2">
-                      This registration ensures we meet rigorous standards of
-                      training, competence, and professional conduct in foot
-                      health care practice.
-                    </p>
-                  </div>
+            {/* Registration block */}
+            <div
+              style={{
+                marginTop: "2rem",
+                background: "var(--sage-lt)",
+                borderRadius: 14,
+                padding: "1.5rem",
+                display: "flex",
+                gap: "1rem",
+                alignItems: "flex-start",
+              }}
+            >
+              <div
+                style={{
+                  width: 42,
+                  height: 42,
+                  borderRadius: 10,
+                  background: "var(--sage)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
+                  marginTop: 2,
+                }}
+              >
+                <Shield size={20} color="white" />
+              </div>
+              <div>
+                <div
+                  style={{
+                    fontSize: "0.9375rem",
+                    fontWeight: 600,
+                    color: "var(--ink)",
+                    marginBottom: "0.25rem",
+                  }}
+                >
+                  Professional Register for Foot Health Care (PRFHC)
                 </div>
+                <div
+                  style={{
+                    fontSize: "0.8125rem",
+                    color: "var(--sage)",
+                    fontWeight: 600,
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  Registration Number: PRFHC0090
+                </div>
+                <p
+                  style={{
+                    fontSize: "0.8125rem",
+                    color: "var(--ink-soft)",
+                    lineHeight: 1.65,
+                  }}
+                >
+                  This registration ensures we meet rigorous standards of
+                  training, competence, and professional conduct in foot health
+                  care practice.
+                </p>
               </div>
             </div>
-            <motion.div
-              className="rounded-2xl overflow-hidden shadow-xl group"
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+          </motion.div>
+
+          {/* Image */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeRight}
+          >
+            <div
+              style={{
+                borderRadius: 20,
+                overflow: "hidden",
+                boxShadow: "0 20px 60px rgba(13,27,42,0.12)",
+                aspectRatio: "4/5",
+              }}
             >
               <motion.img
                 src="/readyToGoBag.jpeg"
                 alt="Ready to go bag with professional foot health equipment"
-                className="w-full h-125 object-cover transition-transform duration-700 group-hover:scale-105"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.4 }}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                whileHover={{ scale: 1.03 }}
+                transition={{ duration: 0.7, ease: easing }}
               />
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
-          {/* Values Section */}
-          <div className="mb-16">
-            <h2 className="text-3xl mb-8 text-center text-slate-900">
+      {/* ── VALUES ── */}
+      <section
+        style={{
+          background: "var(--white)",
+          padding: "5rem clamp(1.5rem,5vw,4rem)",
+        }}
+      >
+        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            style={{ marginBottom: "3rem" }}
+          >
+            <span
+              className="eyebrow"
+              style={{ marginBottom: "0.875rem", display: "inline-flex" }}
+            >
+              What Drives Us
+            </span>
+            <h2
+              className="font-display"
+              style={{
+                fontSize: "clamp(2rem,3.5vw,3rem)",
+                fontWeight: 500,
+                letterSpacing: "-0.02em",
+                color: "var(--ink)",
+                lineHeight: 1.18,
+              }}
+            >
               Our Values
             </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {isLoading
-                ? // Loading skeletons
-                  [...Array(4)].map((_, index) => (
-                    <Card key={index} className="border-2">
-                      <CardContent className="pt-6">
-                        <Skeleton className="w-12 h-12 rounded-lg mb-4" />
-                        <Skeleton className="h-6 w-3/4 mb-2" />
-                        <Skeleton className="h-4 w-full mb-2" />
-                        <Skeleton className="h-4 w-5/6" />
-                      </CardContent>
-                    </Card>
-                  ))
-                : values.map((value, index) => {
-                    const Icon = value.icon;
-                    const isEven = index % 2 === 0;
-                    return (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0, x: isEven ? -50 : 50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: index * 0.1 }}
-                      >
-                        <Card className="border-2 hover:border-primary transition-all duration-300 hover:-translate-y-1 h-full">
-                          <CardContent className="pt-6">
-                            <div className="bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                              <Icon className="size-6 text-primary" />
-                            </div>
-                            <h3 className="mb-2">{value.title}</h3>
-                            <p className="text-sm text-muted-foreground">
-                              {value.description}
-                            </p>
-                          </CardContent>
-                        </Card>
-                      </motion.div>
-                    );
-                  })}
-            </div>
-          </div>
+          </motion.div>
 
-          {/* Who We Serve */}
-          <div className="bg-slate-50 rounded-2xl p-8 lg:p-12 mb-16">
-            <h2 className="text-3xl mb-8 text-center text-slate-900">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+              gap: "1.25rem",
+            }}
+          >
+            {isLoading
+              ? [...Array(4)].map((_, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      background: "var(--white)",
+                      borderRadius: 16,
+                      padding: "2rem",
+                      border: "1px solid var(--border)",
+                    }}
+                  >
+                    <Skeleton className="w-11 h-11 rounded-lg mb-4" />
+                    <Skeleton className="h-5 w-3/4 mb-3" />
+                    <Skeleton className="h-4 w-full mb-2" />
+                    <Skeleton className="h-4 w-5/6" />
+                  </div>
+                ))
+              : values.map((v, i) => {
+                  const Icon = v.icon;
+                  return (
+                    <motion.div
+                      key={i}
+                      custom={i}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true }}
+                      variants={fadeUp}
+                    >
+                      <div className="value-card">
+                        <div
+                          className="val-icon"
+                          style={{
+                            width: 46,
+                            height: 46,
+                            borderRadius: 10,
+                            background: "var(--sage-lt)",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            marginBottom: "1.25rem",
+                            transition: "background 0.25s",
+                          }}
+                        >
+                          <Icon size={20} color="var(--sage)" />
+                        </div>
+                        <h3
+                          style={{
+                            fontSize: "1rem",
+                            fontWeight: 600,
+                            color: "var(--ink)",
+                            marginBottom: "0.5rem",
+                          }}
+                        >
+                          {v.title}
+                        </h3>
+                        <p
+                          style={{
+                            fontSize: "0.875rem",
+                            color: "var(--ink-soft)",
+                            lineHeight: 1.65,
+                          }}
+                        >
+                          {v.description}
+                        </p>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHO WE SERVE ── */}
+      <section
+        style={{
+          background: "var(--cream)",
+          padding: "5rem clamp(1.5rem,5vw,4rem)",
+        }}
+      >
+        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            style={{ marginBottom: "3rem" }}
+          >
+            <span
+              className="eyebrow"
+              style={{ marginBottom: "0.875rem", display: "inline-flex" }}
+            >
+              Patients
+            </span>
+            <h2
+              className="font-display"
+              style={{
+                fontSize: "clamp(2rem,3.5vw,3rem)",
+                fontWeight: 500,
+                letterSpacing: "-0.02em",
+                color: "var(--ink)",
+                lineHeight: 1.18,
+              }}
+            >
               Who We Serve
             </h2>
-            <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-              {isLoading
-                ? [...Array(6)].map((_, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <Skeleton className="size-5 rounded-full shrink-0" />
-                      <Skeleton className="h-5 flex-1" />
-                    </div>
-                  ))
-                : specialties.map((specialty, index) => {
-                    const isEven = index % 2 === 0;
-                    return (
-                      <motion.div
-                        key={index}
-                        className="flex items-start gap-3"
-                        initial={{ opacity: 0, x: isEven ? -30 : 30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: index * 0.08 }}
-                      >
-                        <CheckCircle className="size-5 text-secondary shrink-0 mt-0.5" />
-                        <p className="text-slate-700">{specialty}</p>
-                      </motion.div>
-                    );
-                  })}
-            </div>
+          </motion.div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
+              gap: "0.875rem",
+              maxWidth: 900,
+            }}
+          >
+            {isLoading
+              ? [...Array(6)].map((_, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.75rem",
+                    }}
+                  >
+                    <Skeleton className="w-5 h-5 rounded-full" />
+                    <Skeleton className="h-5 flex-1" />
+                  </div>
+                ))
+              : specialties.map((s, i) => (
+                  <motion.div
+                    key={i}
+                    custom={i}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeUp}
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: "0.75rem",
+                      background: "var(--white)",
+                      borderRadius: 12,
+                      padding: "1rem 1.25rem",
+                      border: "1px solid var(--border)",
+                    }}
+                  >
+                    <CheckCircle
+                      size={16}
+                      color="var(--sage)"
+                      style={{ flexShrink: 0, marginTop: 2 }}
+                    />
+                    <span
+                      style={{
+                        fontSize: "0.9rem",
+                        color: "var(--ink-soft)",
+                        lineHeight: 1.55,
+                      }}
+                    >
+                      {s}
+                    </span>
+                  </motion.div>
+                ))}
           </div>
+        </div>
+      </section>
 
-          {/* Service Delivery */}
-          <div className="grid md:grid-cols-2 gap-8 mb-16">
-            <Card className="border-2">
-              <CardContent className="pt-6">
-                <div className="bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                  <MapPin className="size-6 text-primary" />
-                </div>
-                <h3 className="mb-3">Home Visits</h3>
-                <p className="text-muted-foreground mb-4">
-                  We bring professional foot health care directly to your home,
-                  providing convenience and comfort for patients with mobility
-                  concerns or those who prefer the familiarity of their own
-                  environment.
-                </p>
-                <ul className="space-y-2 text-sm text-slate-600">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="size-4 text-secondary shrink-0 mt-0.5" />
-                    <span>Available across Aberdeen & Aberdeenshire</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="size-4 text-secondary shrink-0 mt-0.5" />
-                    <span>Flexible scheduling to suit your needs</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="size-4 text-secondary shrink-0 mt-0.5" />
-                    <span>Care homes and facilities welcome</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2">
-              <CardContent className="pt-6">
-                <div className="bg-secondary/10 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                  <Award className="size-6 text-secondary" />
-                </div>
-                <h3 className="mb-3">Studio Appointments</h3>
-                <p className="text-muted-foreground mb-4">
-                  Our professional studio environment is equipped for
-                  comprehensive services and medical pedicures. Studio
-                  appointments are available every Thursday and can be booked
-                  online.
-                </p>
-                <ul className="space-y-2 text-sm text-slate-600">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="size-4 text-secondary shrink-0 mt-0.5" />
-                    <span>Thursday appointments available</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="size-4 text-secondary shrink-0 mt-0.5" />
-                    <span>Professional, clean environment</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="size-4 text-secondary shrink-0 mt-0.5" />
-                    <span>Online booking available</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Studio Showcase */}
-          <div className="mb-16">
-            <motion.div
-              className="text-center mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+      {/* ── SERVICE DELIVERY ── */}
+      <section
+        style={{
+          background: "var(--white)",
+          padding: "5rem clamp(1.5rem,5vw,4rem)",
+        }}
+      >
+        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            style={{ marginBottom: "3rem" }}
+          >
+            <span
+              className="eyebrow"
+              style={{ marginBottom: "0.875rem", display: "inline-flex" }}
             >
-              <h2 className="text-3xl text-slate-900 mb-4">
-                Our Professional Studio
-              </h2>
-              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                A clean, comfortable, and fully equipped environment designed
-                for your foot health care
-              </p>
-            </motion.div>
-            <motion.div
-              className="rounded-2xl overflow-hidden shadow-2xl group"
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+              How We Work
+            </span>
+            <h2
+              className="font-display"
+              style={{
+                fontSize: "clamp(2rem,3.5vw,3rem)",
+                fontWeight: 500,
+                letterSpacing: "-0.02em",
+                color: "var(--ink)",
+                lineHeight: 1.18,
+              }}
+            >
+              How We Deliver Care
+            </h2>
+          </motion.div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+              gap: "1.25rem",
+            }}
+          >
+            {[
+              {
+                icon: MapPin,
+                title: "Home Visits",
+                desc: "We bring professional foot health care directly to your home, providing convenience and comfort for patients with mobility concerns or those who prefer the familiarity of their own environment.",
+                points: [
+                  "Available across Aberdeen & Aberdeenshire",
+                  "Flexible scheduling to suit your needs",
+                  "Care homes and facilities welcome",
+                ],
+              },
+              {
+                icon: Award,
+                title: "Studio Appointments",
+                desc: "Our professional studio environment is equipped for comprehensive services and medical pedicures. Studio appointments are available every Thursday and can be booked online.",
+                points: [
+                  "Thursday appointments available",
+                  "Professional, clean environment",
+                  "Online booking available",
+                ],
+              },
+            ].map((card, i) => {
+              const Icon = card.icon;
+              return (
+                <motion.div
+                  key={i}
+                  custom={i}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={fadeUp}
+                >
+                  <div className="delivery-card">
+                    <div
+                      style={{
+                        width: 46,
+                        height: 46,
+                        borderRadius: 10,
+                        background: "var(--sage-lt)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginBottom: "1.25rem",
+                      }}
+                    >
+                      <Icon size={20} color="var(--sage)" />
+                    </div>
+                    <h3
+                      style={{
+                        fontFamily: "'Cormorant Garamond', Georgia, serif",
+                        fontSize: "1.375rem",
+                        fontWeight: 500,
+                        color: "var(--ink)",
+                        letterSpacing: "-0.01em",
+                        marginBottom: "0.625rem",
+                      }}
+                    >
+                      {card.title}
+                    </h3>
+                    <p
+                      style={{
+                        fontSize: "0.875rem",
+                        color: "var(--ink-soft)",
+                        lineHeight: 1.65,
+                        marginBottom: "1.5rem",
+                      }}
+                    >
+                      {card.desc}
+                    </p>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "0.5rem",
+                        paddingTop: "1.25rem",
+                        borderTop: "1px solid var(--border)",
+                      }}
+                    >
+                      {card.points.map((p, j) => (
+                        <div
+                          key={j}
+                          style={{
+                            display: "flex",
+                            alignItems: "flex-start",
+                            gap: "0.5rem",
+                          }}
+                        >
+                          <CheckCircle
+                            size={14}
+                            color="var(--sage)"
+                            style={{ flexShrink: 0, marginTop: 2 }}
+                          />
+                          <span
+                            style={{
+                              fontSize: "0.84rem",
+                              color: "var(--ink-soft)",
+                              lineHeight: 1.55,
+                            }}
+                          >
+                            {p}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── STUDIO SHOWCASE ── */}
+      <section
+        style={{
+          background: "var(--cream)",
+          padding: "5rem clamp(1.5rem,5vw,4rem)",
+        }}
+      >
+        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            style={{ marginBottom: "3rem" }}
+          >
+            <span
+              className="eyebrow"
+              style={{ marginBottom: "0.875rem", display: "inline-flex" }}
+            >
+              The Studio
+            </span>
+            <h2
+              className="font-display"
+              style={{
+                fontSize: "clamp(2rem,3.5vw,3rem)",
+                fontWeight: 500,
+                letterSpacing: "-0.02em",
+                color: "var(--ink)",
+                lineHeight: 1.18,
+              }}
+            >
+              Our Professional Studio
+            </h2>
+            <p
+              style={{
+                fontSize: "1.0625rem",
+                color: "var(--ink-soft)",
+                lineHeight: 1.7,
+                maxWidth: 520,
+                marginTop: "0.875rem",
+              }}
+            >
+              A clean, comfortable, and fully equipped environment designed for
+              your foot health care
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            custom={1}
+          >
+            <div
+              style={{
+                borderRadius: 20,
+                overflow: "hidden",
+                boxShadow: "0 20px 60px rgba(13,27,42,0.12)",
+              }}
             >
               <motion.img
                 src="/studio.jpeg"
                 alt="Professional foot health studio interior"
-                className="w-full h-100 lg:h-125 object-cover transition-transform duration-700 group-hover:scale-105"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.4 }}
+                style={{
+                  width: "100%",
+                  height: "clamp(300px, 40vw, 550px)",
+                  objectFit: "cover",
+                  display: "block",
+                }}
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.7, ease: easing }}
               />
-            </motion.div>
-          </div>
-
-          {/* Location */}
-          <div className="text-center mb-16">
-            <h2 className="text-3xl mb-4 text-slate-900">Our Location</h2>
-            <p className="text-lg text-slate-600 mb-2">
-              11 School Crescent, Newburgh, Ellon AB41 6BH
-            </p>
-            <p className="text-slate-600">
-              Serving Aberdeen, Aberdeenshire & surrounding areas
-            </p>
-          </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="py-16 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl mb-4 text-slate-900">
-              Get In Touch
+      {/* ── LOCATION ── */}
+      <section
+        style={{
+          background: "var(--white)",
+          padding: "5rem clamp(1.5rem,5vw,4rem)",
+        }}
+      >
+        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            style={{ marginBottom: "3rem" }}
+          >
+            <span
+              className="eyebrow"
+              style={{ marginBottom: "0.875rem", display: "inline-flex" }}
+            >
+              Find Us
+            </span>
+            <h2
+              className="font-display"
+              style={{
+                fontSize: "clamp(2rem,3.5vw,3rem)",
+                fontWeight: 500,
+                letterSpacing: "-0.02em",
+                color: "var(--ink)",
+                lineHeight: 1.18,
+              }}
+            >
+              Our Location
             </h2>
-            <p className="text-lg text-slate-600">
-              Have questions or ready to book? We&apos;re here to help
+            <p
+              style={{
+                fontSize: "1.0625rem",
+                color: "var(--ink-soft)",
+                lineHeight: 1.7,
+                maxWidth: 520,
+                marginTop: "0.875rem",
+              }}
+            >
+              11 School Crescent, Newburgh, Ellon AB41 6BH
+              <br />
+              Serving Aberdeen, Aberdeenshire &amp; surrounding areas
             </p>
-          </div>
+          </motion.div>
 
-          {/* Contact Methods */}
-          <div className="grid md:grid-cols-4 gap-6 mb-12">
-            {[
-              {
-                icon: Phone,
-                title: "Phone",
-                link: "tel:+447300790349",
-                text: "07300 790349",
-              },
-              {
-                icon: Mail,
-                title: "Email",
-                link: "mailto:2carefoothealth@gmail.com",
-                text: "2carefoothealth@gmail.com",
-                isSmall: true,
-              },
-              {
-                icon: MessageCircle,
-                title: "WhatsApp",
-                link: "https://wa.me/447300790349",
-                text: "Message Us",
-                external: true,
-              },
-              {
-                icon: MapPin,
-                title: "Address",
-                text: "11 School Crescent, Newburgh, Ellon AB41 6BH",
-                isAddress: true,
-              },
-            ].map((contact, index) => {
-              const Icon = contact.icon;
-              const isEven = index % 2 === 0;
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: isEven ? -40 : 40 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                >
-                  <Card className="border-2 hover:border-primary transition-all duration-300 hover:-translate-y-1 h-full">
-                    <CardContent className="pt-6">
-                      <div className="bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                        <Icon className="size-6 text-primary" />
-                      </div>
-                      <h3 className="mb-2">{contact.title}</h3>
-                      {contact.isAddress ? (
-                        <p className="text-muted-foreground text-sm">
-                          {contact.text}
-                        </p>
-                      ) : (
-                        <a
-                          href={contact.link}
-                          {...(contact.external && {
-                            target: "_blank",
-                            rel: "noopener noreferrer",
-                          })}
-                          className={`text-muted-foreground hover:text-primary transition-colors block ${contact.isSmall ? "break-all text-sm" : ""}`}
-                        >
-                          {contact.text}
-                        </a>
-                      )}
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          {/* Map and Additional Information */}
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+              gap: "2rem",
+              alignItems: "start",
+            }}
+          >
             {/* Map */}
-            <div>
-              <Card className="border-2 overflow-hidden">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <MapPin className="size-5 text-primary" />
-                    Find Us
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-0">
-                  <div className="w-full h-169">
-                    <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2159.8147688536853!2d-2.0089907!3d57.3339839!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4884197d8f8f8f8f%3A0x0!2s11%20School%20Crescent%2C%20Newburgh%2C%20Ellon%20AB41%206BH!5e0!3m2!1sen!2suk!4v1234567890"
-                      width="100%"
-                      height="700"
-                      style={{ border: 0 }}
-                      allowFullScreen
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                      title="2Care Foot Health Location"
-                    />
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeLeft}
+            >
+              <div
+                style={{
+                  borderRadius: 20,
+                  overflow: "hidden",
+                  boxShadow: "0 12px 40px rgba(13,27,42,0.10)",
+                  border: "1px solid var(--border)",
+                }}
+              >
+                <div
+                  style={{
+                    padding: "1.25rem 1.75rem",
+                    borderBottom: "1px solid var(--border)",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.75rem",
+                    background: "var(--white)",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: 36,
+                      height: 36,
+                      borderRadius: 8,
+                      background: "var(--gold-lt)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <MapPin size={18} color="var(--gold)" />
                   </div>
-                </CardContent>
-              </Card>
-              <p className="text-sm text-muted-foreground mt-4 text-center">
+                  <span
+                    style={{
+                      fontSize: "0.9375rem",
+                      fontWeight: 600,
+                      color: "var(--ink)",
+                    }}
+                  >
+                    Find Us
+                  </span>
+                </div>
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2159.8147688536853!2d-2.0089907!3d57.3339839!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4884197d8f8f8f8f%3A0x0!2s11%20School%20Crescent%2C%20Newburgh%2C%20Ellon%20AB41%206BH!5e0!3m2!1sen!2suk!4v1234567890"
+                  width="100%"
+                  height="760"
+                  style={{ border: 0, display: "block" }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="2Care Foot Health Location"
+                />
+              </div>
+              <p
+                style={{
+                  fontSize: "0.8rem",
+                  color: "var(--muted)",
+                  marginTop: "0.875rem",
+                  textAlign: "center",
+                }}
+              >
                 11 School Crescent, Newburgh, Ellon AB41 6BH
               </p>
-            </div>
+            </motion.div>
 
-            {/* Additional Information */}
-            <div className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Clock className="size-5 text-primary" />
+            {/* Info cards */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeRight}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "1.25rem",
+              }}
+            >
+              {/* Availability */}
+              <div className="info-card">
+                <div className="info-card-header">
+                  <div
+                    style={{
+                      width: 36,
+                      height: 36,
+                      borderRadius: 8,
+                      background: "var(--sage-lt)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Clock size={18} color="var(--sage)" />
+                  </div>
+                  <span
+                    style={{
+                      fontSize: "0.9375rem",
+                      fontWeight: 600,
+                      color: "var(--ink)",
+                    }}
+                  >
                     Availability
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
+                  </span>
+                </div>
+                <div className="info-card-body">
                   <div>
-                    <h4 className="mb-2">Studio Appointments</h4>
-                    <p className="text-muted-foreground">Thursdays only</p>
+                    <div
+                      style={{
+                        fontSize: "0.875rem",
+                        fontWeight: 600,
+                        color: "var(--ink)",
+                        marginBottom: "0.25rem",
+                      }}
+                    >
+                      Studio Appointments
+                    </div>
+                    <p
+                      style={{ fontSize: "0.875rem", color: "var(--ink-soft)" }}
+                    >
+                      Thursdays only
+                    </p>
                     <a
                       href="https://dikidi.net/1756535"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-primary hover:underline text-sm inline-block mt-2"
+                      style={{
+                        fontSize: "0.8125rem",
+                        color: "var(--sage)",
+                        fontWeight: 600,
+                        textDecoration: "none",
+                        display: "inline-block",
+                        marginTop: "0.4rem",
+                      }}
                     >
                       Book online →
                     </a>
                   </div>
-                  <div className="border-t pt-4">
-                    <h4 className="mb-2">Home Visits</h4>
-                    <p className="text-muted-foreground">
+                  <div className="divider-row">
+                    <div
+                      style={{
+                        fontSize: "0.875rem",
+                        fontWeight: 600,
+                        color: "var(--ink)",
+                        marginBottom: "0.25rem",
+                      }}
+                    >
+                      Home Visits
+                    </div>
+                    <p
+                      style={{ fontSize: "0.875rem", color: "var(--ink-soft)" }}
+                    >
                       Available throughout the week. Call or WhatsApp to
                       schedule.
                     </p>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <MapPin className="size-5 text-primary" />
+              {/* Service Areas */}
+              <div className="info-card">
+                <div className="info-card-header">
+                  <div
+                    style={{
+                      width: 36,
+                      height: 36,
+                      borderRadius: 8,
+                      background: "var(--sage-lt)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                    }}
+                  >
+                    <MapPin size={18} color="var(--sage)" />
+                  </div>
+                  <span
+                    style={{
+                      fontSize: "0.9375rem",
+                      fontWeight: 600,
+                      color: "var(--ink)",
+                    }}
+                  >
                     Service Areas
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground mb-4">
+                  </span>
+                </div>
+                <div className="info-card-body">
+                  <p
+                    style={{
+                      fontSize: "0.875rem",
+                      color: "var(--ink-soft)",
+                      marginBottom: "0.875rem",
+                    }}
+                  >
                     We provide home visits across:
                   </p>
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li>• Aberdeen</li>
-                    <li>• Aberdeenshire</li>
-                    <li>• Surrounding areas</li>
-                  </ul>
-                  <p className="text-sm text-muted-foreground mt-4">
+                  {["Aberdeen", "Aberdeenshire", "Surrounding areas"].map(
+                    (area) => (
+                      <div
+                        key={area}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.5rem",
+                          marginBottom: "0.4rem",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 6,
+                            height: 6,
+                            borderRadius: "50%",
+                            background: "var(--sage)",
+                            flexShrink: 0,
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontSize: "0.875rem",
+                            color: "var(--ink-soft)",
+                          }}
+                        >
+                          {area}
+                        </span>
+                      </div>
+                    ),
+                  )}
+                  <p
+                    style={{
+                      fontSize: "0.8125rem",
+                      color: "var(--muted)",
+                      marginTop: "0.875rem",
+                    }}
+                  >
                     Not sure if we cover your area? Give us a call and
                     we&apos;ll be happy to discuss.
                   </p>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle>Quick Contact</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <Button
-                    onClick={() => (window.location.href = "tel:+447300790349")}
-                    variant="outline"
-                    className="w-full gap-2"
-                    size="lg"
+              {/* Quick contact */}
+              <div className="info-card">
+                <div className="info-card-header">
+                  <div
+                    style={{
+                      width: 36,
+                      height: 36,
+                      borderRadius: 8,
+                      background: "var(--gold-lt)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                    }}
                   >
-                    <Phone className="size-5" />
-                    Call 07300 790349
-                  </Button>
-                  <Button
+                    <Phone size={18} color="var(--gold)" />
+                  </div>
+                  <span
+                    style={{
+                      fontSize: "0.9375rem",
+                      fontWeight: 600,
+                      color: "var(--ink)",
+                    }}
+                  >
+                    Quick Contact
+                  </span>
+                </div>
+                <div
+                  className="info-card-body"
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.75rem",
+                  }}
+                >
+                  <button
+                    onClick={() => (window.location.href = "tel:+447300790349")}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "0.5rem",
+                      background: "var(--ink)",
+                      color: "white",
+                      fontSize: "0.9rem",
+                      fontWeight: 600,
+                      padding: "0.75rem 1.5rem",
+                      borderRadius: "100px",
+                      border: "none",
+                      cursor: "pointer",
+                      fontFamily: "inherit",
+                      transition: "background 0.2s",
+                    }}
+                    onMouseEnter={(e) =>
+                      (e.currentTarget.style.background = "var(--gold)")
+                    }
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.background = "var(--ink)")
+                    }
+                  >
+                    <Phone size={16} /> Call 07300 790349
+                  </button>
+                  <button
                     onClick={() =>
                       window.open("https://wa.me/447300790349", "_blank")
                     }
-                    variant="outline"
-                    className="w-full gap-2"
-                    size="lg"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "0.5rem",
+                      background: "transparent",
+                      color: "var(--ink)",
+                      fontSize: "0.9rem",
+                      fontWeight: 500,
+                      padding: "0.75rem 1.5rem",
+                      borderRadius: "100px",
+                      border: "1.5px solid var(--border-md)",
+                      cursor: "pointer",
+                      fontFamily: "inherit",
+                      transition: "border-color 0.2s",
+                    }}
+                    onMouseEnter={(e) =>
+                      (e.currentTarget.style.borderColor = "var(--ink)")
+                    }
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.borderColor = "var(--border-md)")
+                    }
                   >
-                    <MessageCircle className="size-5" />
-                    WhatsApp Us
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
+                    <MessageCircle size={16} /> WhatsApp Us
+                  </button>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl mb-8 text-center text-slate-900">
-            Frequently Asked Questions
-          </h2>
-          <div className="space-y-4">
-            {[
-              {
-                question: "How quickly can I get an appointment?",
-                answer:
-                  "We strive to accommodate appointments as quickly as possible. Home visits can often be arranged within a few days, and studio appointments on Thursdays can be booked online immediately based on availability.",
-              },
-              {
-                question: "Do you provide services to care homes?",
-                answer:
-                  "Yes! We provide professional foot health services to care homes and residential facilities across our service area. Please contact us to discuss your care home's needs.",
-              },
-              {
-                question: "What should I expect during a home visit?",
-                answer:
-                  "We bring all necessary equipment to your home. All you need to provide is a comfortable chair and good lighting. The appointment typically lasts 30-45 minutes depending on the treatment required.",
-              },
-              {
-                question: "Are you qualified and insured?",
-                answer:
-                  "Yes, we are registered with the Professional Register for Foot Health Care (Registration Number: PRFHC0090) and are fully insured. We maintain the highest standards of professional practice and hygiene.",
-              },
-            ].map((faq, index) => {
-              const isEven = index % 2 === 0;
+      {/* ── CONTACT METHODS ── */}
+      <section
+        style={{
+          background: "var(--cream)",
+          padding: "5rem clamp(1.5rem,5vw,4rem)",
+        }}
+      >
+        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            style={{ marginBottom: "3rem" }}
+          >
+            <span
+              className="eyebrow"
+              style={{ marginBottom: "0.875rem", display: "inline-flex" }}
+            >
+              Reach Out
+            </span>
+            <h2
+              className="font-display"
+              style={{
+                fontSize: "clamp(2rem,3.5vw,3rem)",
+                fontWeight: 500,
+                letterSpacing: "-0.02em",
+                color: "var(--ink)",
+                lineHeight: 1.18,
+              }}
+            >
+              Get In Touch
+            </h2>
+            <p
+              style={{
+                fontSize: "1.0625rem",
+                color: "var(--ink-soft)",
+                lineHeight: 1.7,
+                maxWidth: 440,
+                marginTop: "0.875rem",
+              }}
+            >
+              Have questions or ready to book? We&apos;re here to help
+            </p>
+          </motion.div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+              gap: "1.25rem",
+            }}
+          >
+            {contacts.map((c, i) => {
+              const Icon = c.icon;
               return (
                 <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: isEven ? -40 : 40 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  key={i}
+                  custom={i}
+                  initial="hidden"
+                  whileInView="visible"
                   viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  variants={fadeUp}
                 >
-                  <Card className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                    <CardHeader>
-                      <CardTitle className="text-lg">{faq.question}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">{faq.answer}</p>
-                    </CardContent>
-                  </Card>
+                  <div className="contact-card">
+                    <div
+                      className="contact-icon"
+                      style={{
+                        width: 46,
+                        height: 46,
+                        borderRadius: 10,
+                        background: "var(--sage-lt)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginBottom: "1.25rem",
+                        transition: "background 0.25s",
+                      }}
+                    >
+                      <Icon size={20} color="var(--sage)" />
+                    </div>
+                    <h3
+                      style={{
+                        fontSize: "0.9375rem",
+                        fontWeight: 600,
+                        color: "var(--ink)",
+                        marginBottom: "0.4rem",
+                      }}
+                    >
+                      {c.title}
+                    </h3>
+                    {c.isAddress ? (
+                      <p
+                        style={{
+                          fontSize: "0.875rem",
+                          color: "var(--ink-soft)",
+                          lineHeight: 1.6,
+                        }}
+                      >
+                        {c.text}
+                      </p>
+                    ) : (
+                      <a
+                        href={c.link}
+                        {...(c.external
+                          ? { target: "_blank", rel: "noopener noreferrer" }
+                          : {})}
+                        style={{
+                          fontSize: c.isSmall ? "0.8125rem" : "0.875rem",
+                          color: "var(--sage)",
+                          fontWeight: 500,
+                          textDecoration: "none",
+                          wordBreak: "break-all",
+                          display: "block",
+                        }}
+                      >
+                        {c.text}
+                      </a>
+                    )}
+                  </div>
                 </motion.div>
               );
             })}
           </div>
+        </div>
+      </section>
+
+      {/* ── FAQ ── */}
+      <section
+        style={{
+          background: "var(--white)",
+          padding: "5rem clamp(1.5rem,5vw,4rem)",
+        }}
+      >
+        <div style={{ maxWidth: 800, margin: "0 auto" }}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            style={{ marginBottom: "3rem" }}
+          >
+            <span
+              className="eyebrow"
+              style={{ marginBottom: "0.875rem", display: "inline-flex" }}
+            >
+              FAQ
+            </span>
+            <h2
+              className="font-display"
+              style={{
+                fontSize: "clamp(2rem,3.5vw,3rem)",
+                fontWeight: 500,
+                letterSpacing: "-0.02em",
+                color: "var(--ink)",
+                lineHeight: 1.18,
+              }}
+            >
+              Frequently Asked Questions
+            </h2>
+          </motion.div>
+
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+          >
+            {faqs.map((faq, i) => (
+              <motion.div
+                key={i}
+                custom={i}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeUp}
+              >
+                <div className="faq-item">
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: "1rem",
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontFamily: "'Cormorant Garamond', Georgia, serif",
+                        fontSize: "1.5rem",
+                        fontWeight: 600,
+                        color: "var(--gold)",
+                        lineHeight: 1,
+                        flexShrink: 0,
+                        marginTop: 2,
+                      }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </div>
+                    <div>
+                      <h3
+                        style={{
+                          fontSize: "1rem",
+                          fontWeight: 600,
+                          color: "var(--ink)",
+                          marginBottom: "0.625rem",
+                          lineHeight: 1.4,
+                        }}
+                      >
+                        {faq.question}
+                      </h3>
+                      <p
+                        style={{
+                          fontSize: "0.875rem",
+                          color: "var(--ink-soft)",
+                          lineHeight: 1.7,
+                        }}
+                      >
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA ── */}
+      <section
+        style={{
+          background: "var(--ink)",
+          padding: "6rem clamp(1.5rem,5vw,4rem)",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            top: "-200px",
+            right: "-100px",
+            width: 500,
+            height: 500,
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle, rgba(192,138,58,0.12) 0%, transparent 70%)",
+            pointerEvents: "none",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            bottom: "-150px",
+            left: "-50px",
+            width: 400,
+            height: 400,
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle, rgba(62,112,100,0.15) 0%, transparent 70%)",
+            pointerEvents: "none",
+          }}
+        />
+        <div
+          style={{
+            maxWidth: 1280,
+            margin: "0 auto",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gap: "4rem",
+            alignItems: "center",
+            position: "relative",
+          }}
+        >
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeLeft}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "0.6rem",
+                fontSize: "0.7rem",
+                fontWeight: 700,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "var(--gold)",
+                marginBottom: "0.875rem",
+              }}
+            >
+              <div
+                style={{ width: 20, height: 1.5, background: "var(--gold)" }}
+              />
+              Book Today
+            </div>
+            <h2
+              className="font-display"
+              style={{
+                fontSize: "clamp(2rem,3vw,2.75rem)",
+                fontWeight: 500,
+                color: "white",
+                lineHeight: 1.2,
+                letterSpacing: "-0.02em",
+                marginBottom: "1rem",
+              }}
+            >
+              Ready to Book Your Appointment?
+            </h2>
+            <p
+              style={{
+                color: "rgba(255,255,255,0.55)",
+                fontSize: "1rem",
+                lineHeight: 1.65,
+                maxWidth: 480,
+              }}
+            >
+              Call us, WhatsApp, or book online — we&apos;re happy to help you
+              find the right service
+            </p>
+          </motion.div>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeRight}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.875rem",
+            }}
+          >
+            <button
+              onClick={() => (window.location.href = "tel:+447300790349")}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "0.5rem",
+                background: "var(--gold)",
+                color: "white",
+                fontSize: "0.9375rem",
+                fontWeight: 600,
+                padding: "0.875rem 1.75rem",
+                borderRadius: "100px",
+                border: "none",
+                cursor: "pointer",
+                boxShadow: "0 4px 18px rgba(192,138,58,0.35)",
+                fontFamily: "inherit",
+                transition: "opacity 0.2s, transform 0.15s",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.opacity = "0.9";
+                (e.currentTarget as HTMLButtonElement).style.transform =
+                  "translateY(-1px)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.opacity = "1";
+                (e.currentTarget as HTMLButtonElement).style.transform =
+                  "translateY(0)";
+              }}
+            >
+              <Phone size={17} /> Call 07300 790349
+            </button>
+            <button
+              onClick={() =>
+                window.open("https://wa.me/447300790349", "_blank")
+              }
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "0.5rem",
+                background: "transparent",
+                color: "rgba(255,255,255,0.8)",
+                fontSize: "0.9375rem",
+                fontWeight: 500,
+                padding: "0.875rem 1.75rem",
+                borderRadius: "100px",
+                border: "1.5px solid rgba(255,255,255,0.18)",
+                cursor: "pointer",
+                fontFamily: "inherit",
+                transition: "border-color 0.2s, color 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.borderColor =
+                  "rgba(255,255,255,0.4)";
+                (e.currentTarget as HTMLButtonElement).style.color = "white";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.borderColor =
+                  "rgba(255,255,255,0.18)";
+                (e.currentTarget as HTMLButtonElement).style.color =
+                  "rgba(255,255,255,0.8)";
+              }}
+            >
+              <MessageCircle size={17} /> WhatsApp Us
+            </button>
+            <button
+              onClick={() =>
+                window.open("https://dikidi.net/1756535", "_blank")
+              }
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "0.5rem",
+                background: "transparent",
+                color: "rgba(255,255,255,0.8)",
+                fontSize: "0.9375rem",
+                fontWeight: 500,
+                padding: "0.875rem 1.75rem",
+                borderRadius: "100px",
+                border: "1.5px solid rgba(255,255,255,0.18)",
+                cursor: "pointer",
+                fontFamily: "inherit",
+                transition: "border-color 0.2s, color 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.borderColor =
+                  "rgba(255,255,255,0.4)";
+                (e.currentTarget as HTMLButtonElement).style.color = "white";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.borderColor =
+                  "rgba(255,255,255,0.18)";
+                (e.currentTarget as HTMLButtonElement).style.color =
+                  "rgba(255,255,255,0.8)";
+              }}
+            >
+              Book Online
+            </button>
+          </motion.div>
         </div>
       </section>
     </div>

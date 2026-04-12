@@ -1,16 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { Phone, Mail, Menu, X, MessageCircle } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Phone, Mail, Menu, X, MessageCircle, Calendar } from "lucide-react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-
-//interface HeaderProps {
-// currentPage: string;
-// onNavigate: (page: string) => void;
-//}
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -22,10 +17,15 @@ export function Header() {
     { id: "/about", label: "About & Contact" },
   ];
 
-  const handleNavClick = () => {
-    //  onNavigate(pageId);
-    setMobileMenuOpen(false);
-  };
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
+  const handleNavClick = () => setMobileMenuOpen(false);
 
   return (
     <>
@@ -136,53 +136,104 @@ export function Header() {
               )}
             </button>
           </div>
-
-          {/* Mobile Navigation */}
-          {mobileMenuOpen && (
-            <nav
-              className="lg:hidden mt-4 pb-4 border-t border-border pt-4"
-              aria-label="Mobile navigation"
-            >
-              <div className="flex flex-col gap-2">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.id}
-                    href={item.id}
-                    onClick={handleNavClick}
-                    className={`text-left px-4 py-3 rounded-md transition-colors ${
-                      currentPage === item.id
-                        ? "bg-accent text-accent-foreground"
-                        : "text-foreground hover:bg-muted"
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-                <div className="flex flex-col gap-2 mt-2 px-4">
-                  <Button
-                    onClick={() =>
-                      window.open("https://wa.me/447300790349", "_blank")
-                    }
-                    variant="outline"
-                    className="w-full gap-2"
-                  >
-                    <MessageCircle className="size-4" />
-                    WhatsApp
-                  </Button>
-                  <Button
-                    onClick={() =>
-                      window.open("https://dikidi.net/1756535", "_blank")
-                    }
-                    className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground"
-                  >
-                    Book Appointment
-                  </Button>
-                </div>
-              </div>
-            </nav>
-          )}
         </div>
       </header>
+
+      {/* Overlay — closes menu when tapped outside */}
+      {mobileMenuOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/40 lg:hidden"
+          onClick={() => setMobileMenuOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Mobile drawer — slides down from top, above overlay */}
+      <div
+        className={`fixed top-0 left-0 right-0 z-50 bg-white shadow-xl rounded-b-3xl lg:hidden transition-transform duration-300 ease-in-out ${
+          mobileMenuOpen ? "translate-y-0" : "-translate-y-full"
+        }`}
+      >
+        {/* Drawer header */}
+        <div className="flex items-center justify-between px-6 h-28 border-b border-border">
+          <Link href="/" onClick={handleNavClick}>
+            <Image
+              src="/logo-bg.png"
+              alt="2Care Foot Health Logo"
+              width={200}
+              height={80}
+              className="h-20 w-auto"
+              priority
+            />
+          </Link>
+          <button
+            onClick={() => setMobileMenuOpen(false)}
+            className="p-2 hover:bg-muted rounded-md transition-colors"
+            aria-label="Close menu"
+          >
+            <X className="size-6" />
+          </button>
+        </div>
+
+        {/* Nav links */}
+        <nav className="flex flex-col gap-1 p-4" aria-label="Mobile navigation">
+          {navItems.map((item) => (
+            <Link
+              key={item.id}
+              href={item.id}
+              onClick={handleNavClick}
+              className={`px-4 py-3 rounded-md transition-colors text-base font-medium ${
+                currentPage === item.id
+                  ? "bg-accent text-accent-foreground"
+                  : "text-foreground hover:bg-muted"
+              }`}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="border-t border-border mx-4" />
+
+        {/* Action buttons */}
+        <div className="flex flex-col gap-3 p-4">
+          <Button
+            onClick={() => {
+              window.open("https://dikidi.net/1756535", "_blank");
+              handleNavClick();
+            }}
+            className="w-full gap-2 bg-secondary hover:bg-secondary/90 text-secondary-foreground"
+            size="lg"
+          >
+            <Calendar className="size-4" />
+            Book Appointment
+          </Button>
+          <Button
+            onClick={() => {
+              window.location.href = "tel:+447300790349";
+              handleNavClick();
+            }}
+            variant="outline"
+            className="w-full gap-2"
+            size="lg"
+          >
+            <Phone className="size-4" />
+            Call 07300 790349
+          </Button>
+          <Button
+            onClick={() => {
+              window.open("https://wa.me/447300790349", "_blank");
+              handleNavClick();
+            }}
+            variant="outline"
+            className="w-full gap-2"
+            size="lg"
+          >
+            <MessageCircle className="size-4" />
+            WhatsApp Us
+          </Button>
+        </div>
+      </div>
     </>
   );
 }
